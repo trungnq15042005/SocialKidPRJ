@@ -76,6 +76,10 @@ public class Users implements Serializable {
     @Size(max = 20)
     @Column(name = "Role")
     private String role;
+    @Column(name = "Avatar")
+    private String avatar;
+    @Column(name = "Active")
+    private Boolean active;
     @Column(name = "CreatedAt")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -166,7 +170,24 @@ public class Users implements Serializable {
     public void setDob(Date dob) {
         this.dob = dob;
     }
+    
+    public String getAvatar() {
+        return avatar;
+    }
 
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    
+    
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+    
     public String getRole() {
         return role;
     }

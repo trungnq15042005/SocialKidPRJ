@@ -15,7 +15,7 @@
         <ul>
             <c:if test="${sessionScope.currentUser != null}">
                 <li><a href="${pageContext.request.contextPath}/home"><i class="ri-home-4-line"></i> Trang chủ</a></li>
-                <li><a href="${pageContext.request.contextPath}/profile"><i class="ri-user-line"></i> Hồ sơ</a></li>
+                <li><a href="${pageContext.request.contextPath}/editProfile"><i class="ri-user-line"></i> Hồ sơ</a></li>
                 <li><a href="${pageContext.request.contextPath}/messages"><i class="ri-message-3-line"></i> Tin nhắn</a></li>
                 <li><a href="${pageContext.request.contextPath}/notifications"><i class="ri-notification-3-line"></i> Thông báo</a></li>
                 <c:if test="${sessionScope.userRole eq 'admin'}">

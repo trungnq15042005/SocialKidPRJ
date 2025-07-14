@@ -11,12 +11,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 body {
   background-color: #f9fafb;
-  font-family: 'Quicksand', Arial, sans-serif; /* Đảm bảo đã nhúng font này */
+  font-family: 'Quicksand', Arial, sans-serif; 
   margin: 0; padding: 0;
   min-height: 100vh;
-  display: flex; /* Sẽ bị ghi đè bởi flex-direction: column cho trang chính */
-  justify-content: center; /* Sẽ bị ghi đè */
-  align-items: center; /* Sẽ bị ghi đè */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
 }
 
 /* Các kiểu dáng từ login.jsp */
@@ -48,9 +48,9 @@ body {
   font-size: 28px;
 }
 h1.logo-text {
-  font-family: 'Pacifico', cursive; /* Đảm bảo đã nhúng font này */
+  font-family: 'Pacifico', cursive; 
   font-size: 32px;
-  color: #57b5e7;
+  color: white !important;
   margin: 0;
 }
 p.subtitle {
@@ -84,10 +84,10 @@ label {
 }
 input[type=text],
 input[type=password],
-input[type=email], /* Thêm các loại input khác nếu cần */
+input[type=email], 
 input[type=date],
 textarea,
-select { /* Thêm textarea và select */
+select { 
   width: 100%;
   padding: 10px 12px 10px 38px;
   border-radius: 12px;
@@ -265,14 +265,14 @@ button[type=submit]:hover {
 .bottom-text a:hover {
   text-decoration: underline;
 }
-.error-msg, .success-msg { /* Thêm success-msg */
-  color: #e11d48; /* Màu đỏ cho lỗi */
+.error-msg, .success-msg { 
+  color: #e11d48; 
   font-weight: 600;
   margin-top: 8px;
   text-align: center;
 }
 .success-msg {
-    color: #22c55e; /* Màu xanh lá cho thành công */
+    color: #22c55e; 
 }
 
 /* Các kiểu dáng chung cho ứng dụng, không chỉ riêng login */
@@ -283,7 +283,7 @@ button[type=submit]:hover {
   width: 100%;
 }
 header, footer {
-  background-color: #57b5e7; /* Màu chủ đạo */
+  background-color: #57b5e7; 
   color: white;
   padding: 15px 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -297,6 +297,9 @@ header nav {
 }
 header .logo-text {
   margin: 0;
+  color: white !important; 
+  font-family: 'Pacifico', cursive;
+  font-size: 32px;
 }
 header ul {
   list-style: none;
@@ -317,7 +320,7 @@ header ul li a:hover {
   background-color: rgba(255,255,255,0.2);
 }
 .content-wrapper {
-  flex-grow: 1; /* Để phần nội dung chiếm hết không gian còn lại */
+  flex-grow: 1; 
   padding: 20px;
   max-width: 1200px;
   margin: 20px auto;
@@ -332,7 +335,7 @@ header ul li a:hover {
     padding: 24px;
     margin-bottom: 20px;
 }
-.form-input-full { /* Input full width không có icon */
+.form-input-full { 
     width: 100%;
     padding: 10px 12px;
     border-radius: 12px;
@@ -364,4 +367,40 @@ header ul li a:hover {
     color: #b91c1c;
     border: 1px solid #f87171;
 }
+.like-button {
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.like-button:hover {
+    background-color: #57b5e7;
+    color: white;
+}
+
+.like-button i {
+    margin-right: 5px;
+}
+
+.login-header-box {
+    background-color: #57b5e7;
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo-text-white {
+    color: white;
+    margin: 0;
+    font-family: 'Pacifico', cursive;
+    font-size: 32px;
+}
+
 

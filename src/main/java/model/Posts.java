@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -52,6 +53,10 @@ public class Posts implements Serializable {
     private Date createdAt;
     @Column(name = "IsApproved")
     private Boolean isApproved;
+    @Column(name = "ImageUrl")
+    private String imageUrl;
+    @Transient
+    private Long likeCount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postID")
     private List<Comments> commentsList;
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
@@ -98,7 +103,21 @@ public class Posts implements Serializable {
     public void setIsApproved(Boolean isApproved) {
         this.isApproved = isApproved;
     }
+    
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    public Long getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Long likeCount) {
+        this.likeCount = likeCount;
+    }
     public List<Comments> getCommentsList() {
         return commentsList;
     }

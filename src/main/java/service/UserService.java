@@ -92,4 +92,12 @@ public class UserService {
             e.printStackTrace();
         }
     }
+    
+    public void toggleUserStatus(int userId) {
+        Users user = userDAO.findById(userId);
+        if (user != null) {
+            user.setActive(!user.getActive());
+            userDAO.update(user);
+        }
+    }
 }

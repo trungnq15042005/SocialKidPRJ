@@ -4,23 +4,32 @@
  */
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import model.Posts;
 import model.Users;
-import service.UserService;
+import service.PostService;
 
 /**
  *
  * @author Admin
  */
-public class LoginServlet extends HttpServlet {
-    private final UserService userService = new UserService();
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+    maxFileSize = 1024 * 1024 * 10,       // 10MB
+    maxRequestSize = 1024 * 1024 * 50     // 50MB
+)
+public class PostServlet extends HttpServlet {
+    private final PostService postService = new PostService();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,10 +47,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet PostServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PostServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +68,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        processRequest(request, response);
     }
 
     /**
@@ -73,56 +82,59 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");  
+         HttpSession session = request.getSession(false);
+        Users currentUser = (Users) session.getAttribute("currentUser");
 
-        Users user = userService.login(email, password);
-
-        if (user != null) {
-            // Lưu session
-            HttpSession session = request.getSession(true);
-            session.setAttribute("currentUser", user);
-            session.setAttribute("role", user.getRole().toLowerCase());
-
-            // Xử lý Remember Me bằng Cookie
-            if ("on".equals(remember)) {
-                Cookie emailCookie = new Cookie("email", email);
-                Cookie passwordCookie = new Cookie("password", password);
-
-                emailCookie.setMaxAge(7 * 24 * 60 * 60);       // 7 ngày
-                passwordCookie.setMaxAge(7 * 24 * 60 * 60);
-
-                response.addCookie(emailCookie);
-                response.addCookie(passwordCookie);
-            } else {
-                // Xóa cookie nếu người dùng bỏ chọn
-                Cookie emailCookie = new Cookie("email", null);
-                Cookie passwordCookie = new Cookie("password", null);
-                emailCookie.setMaxAge(0);
-                passwordCookie.setMaxAge(0);
-                response.addCookie(emailCookie);
-                response.addCookie(passwordCookie);
-            }
-
-            // Phân quyền
-            String role = user.getRole().toLowerCase();
-            switch (role) {
-                case "admin":
-                    response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
-                    break;
-                case "parent":
-                case "child":
-                    response.sendRedirect(request.getContextPath() + "/user/home");
-                    break;
-                default:
-                    response.sendRedirect(request.getContextPath() + "/login.jsp?error=unknownrole");
-            }
-
-        } else {
-            request.setAttribute("error", "Email hoặc mật khẩu không đúng!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        if (currentUser == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
         }
+
+        String content = request.getParameter("content");
+
+        // Xử lý ảnh
+        Part filePart = request.getPart("image");
+        String fileName = extractFileName(filePart);
+        String imageUrl = null;
+
+        if (fileName != null && !fileName.isEmpty()) {
+            // Tạo thư mục uploads nếu chưa có
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            String filePath = uploadPath + File.separator + fileName;
+            filePart.write(filePath);
+
+            // Đường dẫn tương đối lưu vào DB
+            imageUrl = "uploads/" + fileName;
+        }
+
+        // Tạo bài viết mới
+        Posts post = new Posts();
+        post.setContent(content);
+        post.setCreatedAt(new Date());
+        post.setIsApproved(true);
+        post.setUserID(currentUser);
+        post.setImageUrl(imageUrl);  // Lưu ảnh
+
+        // Lưu vào database
+        postService.createPost(post);
+
+        // Quay lại trang chủ
+        response.sendRedirect(request.getContextPath() + "/home");
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        for (String s : contentDisp.split(";")) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return null;
     }
 
     /**

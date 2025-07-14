@@ -49,6 +49,8 @@ public class Comments implements Serializable {
     private Date createdAt;
     @Column(name = "IsApproved")
     private Boolean isApproved;
+    @Column(name = "Visible", nullable = false)
+    private boolean visible = true;
     @JoinColumn(name = "PostID", referencedColumnName = "PostID")
     @ManyToOne(optional = false)
     private Posts postID;
@@ -110,7 +112,14 @@ public class Comments implements Serializable {
     public void setUserID(Users userID) {
         this.userID = userID;
     }
+    
+    public boolean isVisible() {
+        return visible;
+    }
 
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
     @Override
     public int hashCode() {
         int hash = 0;

@@ -39,6 +39,50 @@
         <servlet-name>HashServlet</servlet-name>
         <servlet-class>controller.HashServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostServlet</servlet-name>
+        <servlet-class>controller.PostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeletePostServlet</servlet-name>
+        <servlet-class>controller.DeletePostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReactionServlet</servlet-name>
+        <servlet-class>controller.ReactionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditPostServlet</servlet-name>
+        <servlet-class>controller.EditPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CommentServlet</servlet-name>
+        <servlet-class>controller.CommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <servlet-class>controller.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditCommentServlet</servlet-name>
+        <servlet-class>controller.EditCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProfileServlet</servlet-name>
+        <servlet-class>controller.EditProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminCommentServlet</servlet-name>
+        <servlet-class>controller.AdminCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <servlet-class>controller.AdminUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -54,6 +98,50 @@
     <servlet-mapping>
         <servlet-name>HashServlet</servlet-name>
         <url-pattern>/hash</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/post</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePostServlet</servlet-name>
+        <url-pattern>/deletePost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReactionServlet</servlet-name>
+        <url-pattern>/reaction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditPostServlet</servlet-name>
+        <url-pattern>/editPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentServlet</servlet-name>
+        <url-pattern>/comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <url-pattern>/deleteComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCommentServlet</servlet-name>
+        <url-pattern>/editComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProfileServlet</servlet-name>
+        <url-pattern>/editProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCommentServlet</servlet-name>
+        <url-pattern>/adminComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <url-pattern>/adminUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

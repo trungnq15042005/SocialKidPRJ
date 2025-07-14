@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Jul 9, 2025, 10:59:26 PM
-    Author     : Admin
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -17,14 +11,21 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/style.css" />
 </head>
 <body>
+
     <div class="login-wrapper">
-        <div class="logo-row">
-            <div class="logo-circle"><i class="ri-bear-smile-fill"></i></div>
-            <h1 class="logo-text">KidConnect</h1>
+
+        <!-- Box xanh + logo -->
+        <div class="login-header-box">
+            <div class="logo-row">
+                <div class="logo-circle">
+                    <i class="ri-bear-smile-fill"></i>
+                </div>
+                <h1 class="logo-text-white">KidConnect</h1>
+            </div>
         </div>
+
         <p class="subtitle">Chào mừng bạn quay trở lại!</p>
 
-        <!-- Thông báo lỗi/thành công -->
         <c:if test="${not empty error}">
             <div class="error-msg">${error}</div>
         </c:if>
@@ -32,8 +33,8 @@
             <div class="success-msg">${successMessage}</div>
         </c:if>
 
-        <!-- Form đăng nhập -->
         <form action="${pageContext.request.contextPath}/login" method="post" id="loginForm">
+
             <div>
                 <label for="email">Email</label>
                 <div class="input-group">
@@ -84,16 +85,15 @@
             Chưa có tài khoản?
             <a href="${pageContext.request.contextPath}/register.jsp">Đăng ký ngay</a>
         </p>
+
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('loginForm');
-
             form.addEventListener('submit', function (e) {
                 const email = form.email.value.trim();
                 const password = form.password.value.trim();
-
                 if (!email || !password) {
                     alert("Vui lòng nhập đầy đủ email và mật khẩu.");
                     e.preventDefault();

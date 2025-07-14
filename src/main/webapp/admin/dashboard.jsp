@@ -50,10 +50,10 @@
         <div class="card">
             <h3>Quản lý</h3>
             <ul style="list-style: none; padding: 0;">
-                <li><a href="${pageContext.request.contextPath}/admin/manage-users.jsp">👤 Quản lý người dùng</a></li>
+                <li><a href="${pageContext.request.contextPath}/adminUser">👤 Quản lý người dùng</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/manage-posts.jsp">📝 Quản lý bài viết</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/comments.jsp">📝 Quản lý bình luận</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/reports.jsp">🚩 Quản lý báo cáo</a></li>
-                <li><a href="${pageContext.request.contextPath}/logout">🚪 Đăng xuất</a></li>
             </ul>
         </div>
     </div>

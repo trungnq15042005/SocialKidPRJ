@@ -7,20 +7,18 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Users;
-import service.UserService;
+import model.Comments;
+import service.CommentService;
 
 /**
  *
  * @author Admin
  */
-public class LoginServlet extends HttpServlet {
-    private final UserService userService = new UserService();
+public class EditCommentServlet extends HttpServlet {
+     private final CommentService commentService = new CommentService();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,10 +36,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet EditCommentServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditCommentServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +57,15 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        int commentId = Integer.parseInt(request.getParameter("commentId"));
+        Comments comment = commentService.findCommentById(commentId);
+
+        if (comment != null) {
+            request.setAttribute("comment", comment);
+            request.getRequestDispatcher("/user/editComment.jsp").forward(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/home?error=Không tìm thấy bình luận");
+        }
     }
 
     /**
@@ -73,55 +79,22 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");  
+        request.setCharacterEncoding("UTF-8");
 
-        Users user = userService.login(email, password);
+        int commentId = Integer.parseInt(request.getParameter("commentId"));
+        String updatedText = request.getParameter("commentText");
 
-        if (user != null) {
-            // Lưu session
-            HttpSession session = request.getSession(true);
-            session.setAttribute("currentUser", user);
-            session.setAttribute("role", user.getRole().toLowerCase());
+        CommentService commentService = new CommentService();
+        Comments comment = commentService.findCommentById(commentId);
 
-            // Xử lý Remember Me bằng Cookie
-            if ("on".equals(remember)) {
-                Cookie emailCookie = new Cookie("email", email);
-                Cookie passwordCookie = new Cookie("password", password);
+        if (comment != null && updatedText != null && !updatedText.trim().isEmpty()) {
+            comment.setCommentText(updatedText.trim());
+            commentService.updateComment(commentId, updatedText);
 
-                emailCookie.setMaxAge(7 * 24 * 60 * 60);       // 7 ngày
-                passwordCookie.setMaxAge(7 * 24 * 60 * 60);
-
-                response.addCookie(emailCookie);
-                response.addCookie(passwordCookie);
-            } else {
-                // Xóa cookie nếu người dùng bỏ chọn
-                Cookie emailCookie = new Cookie("email", null);
-                Cookie passwordCookie = new Cookie("password", null);
-                emailCookie.setMaxAge(0);
-                passwordCookie.setMaxAge(0);
-                response.addCookie(emailCookie);
-                response.addCookie(passwordCookie);
-            }
-
-            // Phân quyền
-            String role = user.getRole().toLowerCase();
-            switch (role) {
-                case "admin":
-                    response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
-                    break;
-                case "parent":
-                case "child":
-                    response.sendRedirect(request.getContextPath() + "/user/home");
-                    break;
-                default:
-                    response.sendRedirect(request.getContextPath() + "/login.jsp?error=unknownrole");
-            }
-
+            // 👉 Quay về trang home
+            response.sendRedirect(request.getContextPath() + "/home");
         } else {
-            request.setAttribute("error", "Email hoặc mật khẩu không đúng!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/home?error=InvalidComment");
         }
     }
 

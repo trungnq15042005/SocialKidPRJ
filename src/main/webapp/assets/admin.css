@@ -1,0 +1,155 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 14, 2025, 4:05:54 PM
+    Author     : Admin
+*/
+/* admin.css - Dành cho giao diện quản trị KidConnect */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 15px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.admin-table thead {
+  background-color: #f3f4f6;
+}
+
+.admin-table th, .admin-table td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Avatar nhỏ trong bảng */
+.avatar-sm {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Nút hành động */
+.toggle-btn, .delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn {
+  background-color: #3b82f6; /* Xanh dương */
+  color: white;
+}
+
+.toggle-btn:hover {
+  background-color: #2563eb;
+}
+
+.delete-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Trạng thái hiển thị (visible) */
+.status-icon {
+  text-align: center;
+  font-size: 18px;
+}
+
+/* Tiêu đề */
+.content-wrapper h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* ===== HEADER ===== */
+header, footer {
+  background-color: #57b5e7;  /* Màu nền xanh KidConnect */
+  color: white;
+  padding: 15px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Điều chỉnh layout bên trong header */
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo chữ KidConnect */
+header .logo-text {
+  margin: 0;
+  color: white !important;
+  font-family: 'Pacifico', cursive;
+  font-size: 32px;
+}
+
+/* Danh sách menu */
+header ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+/* Menu item */
+header ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover cho menu */
+header ul li a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* Responsive - co giãn trên thiết bị nhỏ */
+@media (max-width: 768px) {
+  .admin-table {
+    font-size: 13px;
+  }
+  .toggle-btn, .delete-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}
+
+
